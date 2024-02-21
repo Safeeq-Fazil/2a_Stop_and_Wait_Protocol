@@ -2,6 +2,7 @@
 ## AIM 
 To write a python program to perform stop and wait protocol
 ## ALGORITHM
+
 1. Start the program.
 2. Get the frame size from the user
 3. To create the frame based on the user request.
@@ -9,6 +10,40 @@ To write a python program to perform stop and wait protocol
 5. If your frames reach the server it will send ACK signal to client
 6. Stop the Program
 ## PROGRAM
+### CLIENT
+```
+import socket
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+while True:
+ i=input("Enter a data: ")
+ c.send(i.encode())
+ ack=c.recv(1024).decode()
+ if ack:
+   print(ack)
+   continue
+ else:
+   c.close()
+   break
+```
+### SERVER
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+ print(s.recv(1024).decode())
+ s.send("Acknowledgement Recived".encode())
+```
+
 ## OUTPUT
+### CLIENT
+![image](https://github.com/Safeeq-Fazil/2a_Stop_and_Wait_Protocol/assets/118680361/94f931d2-c21a-4444-b829-1a6c87b27327)
+
+### SERVER
+![image](https://github.com/Safeeq-Fazil/2a_Stop_and_Wait_Protocol/assets/118680361/ca9148ef-31d6-4f3b-8a74-ba1ae681203f)
+
 ## RESULT
 Thus, python program to perform stop and wait protocol was successfully executed.
